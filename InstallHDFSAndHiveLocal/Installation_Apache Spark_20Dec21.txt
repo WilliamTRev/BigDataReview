@@ -1,0 +1,150 @@
+Reference: https://www.youtube.com/watch?v=yPccwGnVQOQ
+
+Other Links: https://phoenixnap.com/kb/install-spark-on-ubuntu
+
+
+
+
+//Update System Packages
+sudo apt update -y
+
+(wterry@LAPTOP-F85RETIP:~$ sudo apt update -y)
+
+// Install Packages Required for Spark: JDK, Scala, Git
+sudo apt install default-jdk scala git -y
+
+(wterry@LAPTOP-F85RETIP:~$ sudo apt install default-jdk scala git -y)
+
+
+// Once the process completes, verify the installed dependencies by running these commands:
+java -version; javac -version; scala -version; git --version
+
+(wterry@LAPTOP-F85RETIP:~$ java -version; javac -version; scala -version; git --version)
+
+Result: 
+openjdk version "1.8.0_292"
+OpenJDK Runtime Environment (build 1.8.0_292-8u292-b10-0ubuntu1~20.04-b10)
+OpenJDK 64-Bit Server VM (build 25.292-b10, mixed mode)
+javac 1.8.0_292
+Scala code runner version 2.11.12 -- Copyright 2002-2017, LAMP/EPFL
+git version 2.25.1
+
+
+// Spark Download location
+https://downloads.apache.org/spark/spark-3.1.2/spark-3.1.2-bin-hadoop3.2.tgz
+
+// Download Spark from (https://spark.apache.org/downloads.html)
+wget https://downloads.apache.org/spark/spark-3.1.2/spark-3.1.2-bin-hadoop3.2.tgz
+
+(wterry@LAPTOP-F85RETIP:~$ wget https://downloads.apache.org/spark/spark-3.1.1/spark-3.1.2-bin-hadoop3.2.tgz)
+
+
+// extract the saved archive using the tar command:
+tar xvzf  spark-3.1.2-bin-hadoop3.2.tgz
+
+(wterry@LAPTOP-F85RETIP:~$ tar xvzf  spark-3.1.2-bin-hadoop3.2.tgz)
+
+
+// Finally, move the unpacked directory spark-3.1.2-bin-hadoop3.2 to the opt/spark directory.
+sudo mv spark-3.1.2-bin-hadoop3.2 /opt/spark
+
+(wterry@LAPTOP-F85RETIP:~$ sudo mv spark-3.1.2-bin-hadoop3.2 /opt/spark)
+
+// The terminal returns no response if it successfully moves the directory. 
+//If you mistype the name, you will get a message similar to:
+//mv: cannot stat 'spark-3.1.2-bin-hadoop3.2': No such file or directory.
+
+
+// Configure Spark Environment: Before starting a master server, you need to configure environment variables. There are a few Spark home paths you need to add to the user profile.//
+vi .profile
+
+// Add below in the .profile file
+export SPARK_HOME=/opt/spark
+export PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin
+export PYSPARK_PYTHON=/usr/bin/python3
+
+//Then source the .profile
+source ~/.profile
+
+
+// Start Standalone Spark Master Server
+//Now that you have completed configuring your environment for Spark, you can start a master server.
+start-master.sh
+
+(wterry@LAPTOP-F85RETIP:~$ start-master.sh)
+
+
+//Run the ssh command
+ssh -L 8080:localhost:8080 wterry@LAPTOP-F85RETIP
+
+(wterry@LAPTOP-F85RETIP:~$ ssh -L 8080:localhost:8080 wterry@LAPTOP-F85RETIP)
+
+// Open browser
+http://localhost:8080/
+
+//Copy url from the web interface
+spark://LAPTOP-F85RETI.localdomain:7077
+
+
+//Start the worker process
+start-worker.sh  spark://LAPTOP-F85RETIP.localdomain:7077
+
+
+//Back in the browser, refresh the page. Should now see that the Worker State = ALIVE
+http://localhost:8080/ > Workers > State > ALIVE
+
+
+//Test Spark Shell
+spark-shell
+
+//This will activate Scala shell. Can type below code near the scala prompt
+println("Hello from spark")
+
+[scala> println("Hello from spark")]
+
+//Result:
+Hello from spark
+
+
+//Next lets try Python shell
+Ctrl key + D
+
+//Result: scala> :quit
+
+pyspark
+
+(wterry@LAPTOP-F85RETIP:~$ pyspark)
+
+print('hello from pyspark!')
+
+[>>> print('hello from pyspark!')]
+
+//Result: hello from pyspark!
+
+
+//To Stop Apache Spark Process
+stop-worker.sh
+
+(wterry@LAPTOP-F85RETIP:~$ stop-worker.sh)
+
+stop-master.sh
+
+(wterry@LAPTOP-F85RETIP:~$ stop-master.sh)
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------
+Errors:
+
+//1.
+gzip: stdin: not in gzip format
+tar: Child returned status 1
+tar: Error is not recoverable: exiting now
+
+Solution: By following above process, this error got solved

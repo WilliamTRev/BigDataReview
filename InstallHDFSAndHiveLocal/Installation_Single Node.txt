@@ -1,0 +1,468 @@
+Methodology: Install Hadoop 3.3.0 on Windows 10 using Windows Subsystem for Linux (WSL2)
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+<<Reference links for WSL2 + Ubuntu-18.04 + Hadoop 3.3.0 Single node Cluster Installation>>
+- 1. Hadoop 3.3.0
+https://kontext.tech/column/hadoop/445/install-hadoop-330-on-windows-10-using-wsl
+or
+https://github.com/samujjwaal/dblp-mapreduce/blob/master/hadoop.md
+
+1.1. Hadoop 3.2.0 (Optional and for people who cannot install Hadoop 3.3.0)
+https://kontext.tech/column/hadoop/307/install-hadoop-320-on-windows-10-using-windows-subsystem-for-linux-wsl
+
+- 2. Other reference Links:
+- https://dev.to/samujjwaal/hadoop-installation-on-windows-10-using-wsl-2ck1
+- https://www.michael-noll.com/tutorials/running-hadoop-on-ubuntu-linux-single-node-cluster/#sun-java-6
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+<<Commands for All the Installation>>
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------<<<1. Commands to Manual Install WSL2 + Ubuntu 18.04 LTS>>>
+------------------------------------------------------------
+Link: https://docs.microsoft.com/en-us/windows/wsl/install-win10
+Complete the Manual Installation Steps (6 steps) as mentioned in the above link and Select 'Ubuntu 18.04 LTS' for Installation to complete Step6 above
+
+- 1. Enable the Windows Subsystem for Linux:
+dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+
+[Open PowerShell as Administrator(Open elevated command prompt)and Run the below command: 
+In Windows 10, you can use the search box inside the Start menu. Type cmd there and press CTRL + SHIFT + ENTER to launch the command prompt elevated (as Administrator)]
+
+- 2. Check requirements for running WSL 2:
+For x64 systems: Version 1903 or higher, with Build 18362 or higher.
+For ARM64 systems: Version 2004 or higher, with Build 19041 or higher.
+Builds lower than 18362 do not support WSL 2
+To check your version and build number, select Windows logo key + R, type winver, select OK. 
+
+- 3. Enable Virtual Machine feature:
+dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+
+[Before installing WSL 2, you must enable the Virtual Machine Platform optional feature. Your machine will require virtualization capabilities to use this feature.]
+
+- 4. Restart your machine to complete the WSL install and update to WSL 2.
+
+- 5. Download the Linux kernel update package
+WSL2 Linux kernel update package for x64 machines
+https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi
+
+If you're using an ARM64 machine, please download the ARM64 package
+https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_arm64.msi
+
+- 5.1. Run the update package downloaded in the previous step. (Double-click to run - you will be prompted for elevated permissions, select ‘yes’ to approve this installation.)
+
+- 6. Set WSL 2 as your default version
+wsl --set-default-version 2
+
+- 7. Install Linux distribution [Ubuntu-18.04]
+https://www.microsoft.com/store/apps/9N9TNGVNDL3Q
+From the distribution's page, select "Get"
+Microsoft Store will Open
+Click on Install
+Click on Launch
+The first time you launch a newly installed Linux distribution, a console window will open and you'll be asked to wait for a minute or two for files to de-compress and be stored on your PC. All future launches should take less than a second.
+
+- 7.1. You will then need to create a user account and password for your new Linux distribution.
+username: abcd
+Password: ----
+Password: ----
+
+CONGRATULATIONS! You've successfully installed and set up a Linux distribution that is completely integrated with your Windows operating system!
+ 
+- 8. Install Windows Terminal (optional)
+Windows Terminal enables multiple tabs (quickly switch between multiple Linux command lines, Windows Command Prompt, PowerShell, Azure CLI, etc)
+https://aka.ms/terminal
+Click on Get [Windows terminal]
+Microsoft store will open
+Click on Launch
+After installation, when you open the terminal, it will start with PowerShell as the default profile in the open tab.
+The terminal will automatically create profiles for you if you have WSL distros or multiple versions of PowerShell installed.
+You can open a new tab of the default profile by pressing Ctrl+Shift+T or by selecting the + (plus) button. To open a different profile, select the ˅ (arrow) next to the + button to open the dropdown menu. From there, you can select which profile to open.
+
+- 9. Set your distribution version to WSL 1 or WSL 2
+wsl -l -v
+wsl --set-default-version 2
+
+- 9.1. To set a distribution to be backed by either version of WSL please run:
+wsl --set-version <distribution name> <versionNumber>
+wsl --set-version Ubuntu-18.04 2
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+<<<2. Commands to Install Hadoop 3.3.0>>>
+-----------------------------------------
+Link: https://kontext.tech/column/hadoop/445/install-hadoop-330-on-windows-10-using-wsl
+or
+https://github.com/samujjwaal/dblp-mapreduce/blob/master/hadoop.md
+
+** Run below commands in Ubuntu Terminal [Open Windows Terminal by searching in START and select the ˅ (arrow) to open ubuntu terminal]**
+
+- 1. Install Java JDK: Run the following command to update package index:
+sudo apt update
+
+- 2. Check whether Java is installed already:
+java -version
+
+- 2.1. (optional if Java is not installed) if Command 'java' not found, but can be installed with:
+sudo apt install default-jre
+sudo apt install openjdk-11-jre-headless
+sudo apt install openjdk-8-jre-headless
+
+- 3. Install OpenJDK via the following command:
+sudo apt-get install openjdk-8-jdk
+
+sudo update-alternatives --config java
+
+- 4. Check the version installed:
+java -version
+
+Result:
+openjdk version "11.0.10" 2021-01-19
+OpenJDK Runtime Environment (build 11.0.10+9-Ubuntu-0ubuntu1.18.04)
+OpenJDK 64-Bit Server VM (build 11.0.10+9-Ubuntu-0ubuntu1.18.04, mixed mode, sharing)
+
+
+- 5. Run the following command in Ubuntu terminal to download a Hadoop binary from the internet: (If the Hadoop version is changed, then need to update the below command with the new Hadoop version's location)
+
+wget https://mirrors.estointernet.in/apache/hadoop/common/hadoop-3.3.0/hadoop-3.3.0.tar.gz
+
+-Link-
+# The above link will be different and will be based on the region where the person is based on#
+Step to reach the above link
+1. https://hadoop.apache.org/releases.html
+2. Download the release hadoop-X.Y.Z-src.tar.gz from a mirror site.
+3. https://www.apache.org/dyn/closer.cgi/hadoop/common
+4. Click on the link where it is mentioned "We suggest the following mirror site for your download:"
+https://mirrors.estointernet.in/apache/hadoop/common
+5. hadoop-3.3.0/
+6. hadoop-3.3.0.tar.gz 
+https://mirrors.estointernet.in/apache/hadoop/common/hadoop-3.3.0/hadoop-3.3.0.tar.gz
+
+
+
+- 6. Unzip Hadoop binary - Run the following command to create a hadoop folder under home folder:
+mkdir ~/hadoop
+
+- 7. And then run the following command to unzip the binary package:
+tar -xvzf hadoop-3.3.0.tar.gz -C ~/hadoop
+
+- 8. Once it is unzipped, change the current directory to the hadoop folder:
+cd ~/hadoop/hadoop-3.3.0/
+
+- 9. Configure passphraseless ssh
+(Make sure you can SSH to localhost in Ubuntu:)
+ssh localhost
+
+- 9.1. [Optional, only if there is error] If you cannot ssh to localhost without a passphrase, run the following command to initialize your private and public keys
+ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa
+cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+chmod 0600 ~/.ssh/authorized_keys
+
+- 9.2. [Optional, only if there is error] If you encounter errors like ‘ssh: connect to host localhost port 22: Connection refused’, run the following commands
+sudo apt-get install ssh
+
+(then restart the service:)
+sudo service ssh restart
+
+
+- 9.3 [ERROR: ssh: connect to host localhost port 22: Connection refused][Could not load host key: /etc/ssh/ssh_host_rsa_key][Connection reset by 127.0.0.1 port 22]  ---- The below solution is what finally worked for ssh localhost
+Solution: https://stackoverflow.com/questions/17335728/connect-to-host-localhost-port-22-connection-refused
+
+//this tells you whether your ssh instance is active/inactive
+sudo service ssh status
+
+//this list all running processes whose names contain the string "ssh"
+sudo ps -A | grep ssh
+
+//It's likely that ssh would be active and running but sshd would not. To enable them:
+sudo service ssh start
+//then
+ssh localhost
+
+//[ The authenticity of host 'localhost (127.0.0.1)' can't be established. ECDSA key fingerprint is SHA256:Tbz749hLPeSdRWeAOmfTsg1j9QTapVlJogzrgg8ARV4. Are you sure you want to continue connecting (yes/no)?] 
+Continue by typing 'yes'
+//[The above will be done only for first time]
+
+- 9.4. [Error: Connection reset by 127.0.0.1 port 22]
+Remove SSH with the following command:
+sudo apt-get remove openssh-client openssh-server
+
+Install SSH again with:
+sudo apt-get install openssh-client openssh-server
+
+
+
+------ Configure the pseudo-distributed mode (Single-node mode) -----
+
+- 10. Do a fresh start:
+cd ~/hadoop/hadoop-3.3.0/
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+- 11. Setup environment variables by editing file ~/.bashrc.
+vi ~/.bashrc
+
+//Enter below in the file:
+[Press i to Insert the below data]
+export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64
+export HADOOP_HOME=~/hadoop/hadoop-3.3.0
+export PATH=$HADOOP_HOME/bin:$JAVA_HOME/bin:$PATH
+export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
+
+[then, Press Esc button]
+[then, Press ':wq' to save and exit]
+
+
+- 12. Run the following command to source the latest variables:
+source ~/.bashrc
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+- 13. Edit etc/hadoop/hadoop-env.sh file:
+vi etc/hadoop/hadoop-env.sh
+
+//Enter below in the file: to Set a JAVA_HOME environment variable in the file:
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+------------------------------------------------------------------------------------------------------------------------------
+//[Optional, have not included the below in the latest Installation]
+export HADOOP_OPTS="$HADOOP_OPTS -Djava.net.preferIPv4Stack=true -Djava.security.krb5.realm= -Djava.security.krb5.kdc="
+export HADOOP_HOME=/home/wterry/hadoop/hadoop-3.3.0
+export PATH=$PATH:$HADOOP_HOME/bin
+------------------------------------------------------------------------------------------------------------------------------
+
+- 14. Edit etc/hadoop/core-site.xml:
+vi etc/hadoop/core-site.xml
+
+Enter below in the file:
+------------------------------------------------------------------------------------------------------------------------------
+//[Optional, have not included the below in the latest Installation]
+<configuration>
+<property>
+<name>hadoop.tmp.dir</name>
+<value>/usr/local/Cellar/hadoop/hdfs/tmp</value>
+<description>A base for other temporary directories.</description>
+</property> 
+</configuration>    
+-------------------------------------------------------------------------------------------------------------------------------
+<configuration>
+<property>
+         <name>fs.defaultFS</name>
+         <value>hdfs://localhost:9000</value>
+     </property>
+</configuration>
+
+
+- 15. Edit etc/hadoop/hdfs-site.xml:
+vi etc/hadoop/hdfs-site.xml
+
+//Enter below in the file:
+<configuration>
+     <property>
+         <name>dfs.replication</name>
+         <value>1</value>
+     </property>
+</configuration>
+
+
+- 16. Edit file etc/hadoop/mapred-site.xml:
+vi etc/hadoop/mapred-site.xml
+
+//Enter below in the file:
+------------------------------------------------------------------------------------------------------------------------------
+//[Optional, have not included the below in the latest Installation]
+<configuration>
+<property>
+<name>mapred.job.tracker</name>
+<value>localhost:9010</value>
+</property>
+</configuration>
+------------------------------------------------------------------------------------------------------------------------------
+<configuration> 
+<property>
+         <name>mapreduce.framework.name</name>
+         <value>yarn</value>
+     </property>
+     <property>
+         <name>mapreduce.application.classpath</name>
+         <value>$HADOOP_MAPRED_HOME/share/hadoop/mapreduce/*:$HADOOP_MAPRED_HOME/share/hadoop/mapreduce/lib/*</value>
+     </property>
+</configuration>
+
+
+- 17. Edit file etc/hadoop/yarn-site.xml:
+vi etc/hadoop/yarn-site.xml
+
+//Enter below in the file:
+<configuration>
+     <property>
+         <name>yarn.nodemanager.aux-services</name>
+         <value>mapreduce_shuffle</value>
+     </property>
+     <property>
+         <name>yarn.nodemanager.env-whitelist</name>
+         <value>JAVA_HOME,HADOOP_COMMON_HOME,HADOOP_HDFS_HOME,HADOOP_CONF_DIR,CLASSPATH_PREPEND_DISTCACHE,HADOOP_YARN_HOME,HADOOP_MAPRED_HOME</value>
+     </property>
+</configuration>
+
+
+- 18. Run the following command to format the name node
+bin/hdfs namenode -format
+
+- 18.1. [OPTIONAL ERROR:hadoop java.io.IOException: while running namenode -format]
+sudo chmod 777 /home/hadoop/hadoopinfra/hdfs/namenode/
+//or
+sudo chmod -R 777 /usr/local/Cellar/hadoop/hdfs/tmp
+
+- 19. Run DFS daemons - Run following commands to start NameNode and DataNode daemons
+sbin/start-dfs.sh
+
+- 20. Start ResourceManager daemon and NodeManager daemon
+sbin/start-yarn.sh
+
+- 21. Check status using the jps command
+jps
+
+//Result:
+1332 SecondaryNameNode
+1030 DataNode
+1591 ResourceManager
+1784 NodeManager
+841 NameNode
+2155 Jps
+ 
+
+- 22. Shutdown Hadoop services
+sbin/stop-yarn.sh
+sbin/stop-dfs.sh
+
+- 23. Verify status via jps command, only the jps service should be running
+jps
+
+//Result: 13257 Jps  (it could be xxxxx Jps, where X could be any number)
+
+
+//Summary:
+Congratulations, you have successfully installed a single-node Hadoop cluster in one go on your Linux subsystem of Windows 10. It’s relatively easier compared to installing on Windows as we don’t need to download or build native Hadoop HDFS libraries.
+
+//BTW, subsystem is not a virtual machine however it provides you almost the same experience as you would have in a native Linux system.
+
+//Have Fun!
+
+--------Trouble Shooting / Error Fixing------------------
+- 1.  Illegal to have multiple roots
+Solution: In the .xml file - Only 1 Configuration should be there. Rest all data should be within that Configuration. Multiple configurations should be deleted
+
+- 2. To find the Logs:
+https://data-flair.training/forums/topic/while-starting-hadoop-services-datanode-service-is-not-running/
+In Hadoop, problem occurs on DataNode, so first goto log’s dir,
+a. Cd logs
+b. Ls
+c. Less hadoop-ubuntu-datanode-uduntu.log
+
+- 3. Datanode not starting:
+https://stackoverflow.com/questions/46283634/localhost-error-cannot-set-priority-of-datanode-process-32156
+Solution:
+-  Stop dfs service and format hdfs:
+sbin/stop-dfs.sh
+sudo bin/hdfs namenode -format
+- Change permissions for the hadoop temp directory:
+sudo chmod -R 777 /usr/local/Cellar/hadoop/hdfs/tmp
+- Start service again:
+sbin/start-dfs.sh
+
+
+- 4. [Error: While trying to create a hdfs directory] [Command 'hdfs' not found, did you mean:   command 'hfs' from deb hfsutils-tcltk   command 'hdfls' from deb hdf4-tools Try: sudo apt install <deb name>]
+//Solution: add the export commands in .bashrc if not done above in Step 11
+
+- 5. [Error: While trying to create a hdfs directory wordcount1 using the command 'hdfs dfs -mkdir wordcount1'] [mkdir: `hdfs://localhost:9000/user/maria': No such file or directory]
+// Solution: It is because the parent directories do not exist yet either.
+// The -p flag indicates that all nonexistent directories leading up to the given directory are to be created as well.
+// https://stackoverflow.com/questions/40143528/hdfs-dfs-mkdir-no-such-file-or-directory
+hdfs dfs -mkdir -p /user/maria/wordcount1
+-------------------------------------
+HDFS Commands after Installation:
+
+1. Transfer file from Local Linux system to Hadoop HDFS
+hdfs dfs -put /home/maria/hadoop/hadoop-3.3.0/README.txt  /user/maria/
+verify:
+1.1. hdfs dfs -ls /user/maria
+
+1.2. hdfs dfs -ls /
+
+2. Make a directory 
+hdfs dfs -mkdir /first
+
+Other commands
+1. pwd  (present working directory)
+/home/maria/hadoop/hadoop-3.3.0
+
+2. hdfs dfs -ls /user/maria    (/user/maria  = hdfs location in hadoop)
+
+3.  hdfs fsck /user/maria   (fsck = file system check. To check if the file is healthy and can be transferred to hdfs from local)
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+File system tracking/Tracing Method based on commands:
+maria@DFLY36P2:~/hadoop/hadoop-3.3.0$ cd ..
+maria@DFLY36P2:~/hadoop$ ls
+hadoop-3.3.0
+maria@DFLY36P2:~/hadoop$ cd hadoop-3.3.0/
+maria@DFLY36P2:~/hadoop/hadoop-3.3.0$ ls
+LICENSE-binary  NOTICE-binary  README.txt  etc      lib      licenses-binary  sbin
+LICENSE.txt     NOTICE.txt     bin         include  libexec  logs             share
+maria@DFLY36P2:~/hadoop/hadoop-3.3.0$ cd share
+maria@DFLY36P2:~/hadoop/hadoop-3.3.0/share$ ls
+doc  hadoop
+maria@DFLY36P2:~/hadoop/hadoop-3.3.0/share$ cd hadoop/
+maria@DFLY36P2:~/hadoop/hadoop-3.3.0/share/hadoop$ ls
+client  common  hdfs  mapreduce  tools  yarn
+maria@DFLY36P2:~/hadoop/hadoop-3.3.0/share/hadoop$ cd mapreduce/
+maria@DFLY36P2:~/hadoop/hadoop-3.3.0/share/hadoop/mapreduce$ ls
+hadoop-mapreduce-client-app-3.3.0.jar         hadoop-mapreduce-client-jobclient-3.3.0-tests.jar  hadoop-mapreduce-examples-3.3.0.jar
+hadoop-mapreduce-client-common-3.3.0.jar      hadoop-mapreduce-client-jobclient-3.3.0.jar        jdiff
+hadoop-mapreduce-client-core-3.3.0.jar        hadoop-mapreduce-client-nativetask-3.3.0.jar       lib-examples
+hadoop-mapreduce-client-hs-3.3.0.jar          hadoop-mapreduce-client-shuffle-3.3.0.jar          sources
+hadoop-mapreduce-client-hs-plugins-3.3.0.jar  hadoop-mapreduce-client-uploader-3.3.0.jar
+
+
+
+
+
+
+
+--------------------------------------------
+//Other Commands for specific functions: UNINSTALL Ubuntu & WSL
+This has to be done in the Windows Powershell and not in Ubuntu Terminal
+
+- 1. To see a list of installed Linux distributions and their names
+wsl --list
+
+- 2. To uninstall Ubuntu from WSL
+wsl --unregister Ubuntu-18.04
+
+- 3. Uninstall WSL2 on Windows 10 
+- Link - https://pureinfotech.com/uninstall-wsl2-windows-10/
+STEP 1: Uninstall Linux distros from WSL2
+Open Settings on Windows 10.
+Click on Apps.
+Click on Apps & features.
+Select the distribution of Linux and click the Uninstall button. Uninstall Linux distro on WSL2.
+Click the Uninstall button again.
+Once you complete the steps, you may need to repeat the steps to continue removing additional distros as needed.
+
+STEP 2: Uninstall Windows Subsystem for Linux update
+Open Settings.
+Click on Apps.
+Click on Apps & features.
+Select the Windows Subsystem for Linux update item and click the Uninstall button
+Click the Uninstall button again.
+
+STEP 3: Uninstall WSL2 components
+Open Settings.
+Click on Apps.
+Click on Apps & features.
+Under the “Related settings” section, click the Programs and Features option from the right side.
+Click the Turn Windows features on or off option.
+Clear the Virtual Machine Platform option.
+Clear the Windows Subsystem for Linux option.
+Click the OK button.
+Click the Restart now button.
+
+

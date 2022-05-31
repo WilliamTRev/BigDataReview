@@ -1,0 +1,41 @@
+
+
+Spark Installation:
+
+For Window machine:
+
+Download spark-2.1.1-bin-hadoop2.7.tgz (spark-3.2.0-bin-hadoop2.7.tgz) from this site https://spark.apache.org/downloads.html
+
+Unzip and Paste your spark folder in C:\ drive and set environment variable.
+
+If you don’t have Hadoop,
+you need to create Hadoop folder and also create Bin folder in it and then copy and paste winutils.exe file in it.
+
+download winutils file from 
+https://github.com/steveloughran/winutils or better:
+https://github.com/kontext-tech/winutils
+
+and paste winutils.exe file in Hadoop\bin folder and set environment variable for c:\hadoop\bin;
+
+create temp\hive folder in C:\ drive and give the full permission to this folder like: 
+
+type: cd C:\hadoop\bin
+
+then type : winutils.exe chmod -R 777 /tmp/hive
+
+open command prompt first run C:\hadoop\bin> winutils.exe  and then navigate to C:\spark\bin>
+
+run spark-shell
+
+
+-------------
+Did you set your environment variables correctly? SPARK_HOME, HADOOP_HOME as your spark installation directory and add $SPARK_HOME\bin to PATH
+
+
+------------------------------------------------------------
+Also https://docs.microsoft.com/en-us/dotnet/spark/how-to-guides/windows-instructions
+and it leads you to https://github.com/steveloughran/winutils where you can find Hadoop 3.0.0 winutils.exe or Hadoop 2.7.0 winutils.exe
+
+https://stackoverflow.com/questions/27618843/why-does-spark-submit-and-spark-shell-fail-with-failed-to-find-spark-assembly-j/30047304
+
+https://stackoverflow.com/questions/41851066/exception-in-thread-main-java-lang-unsatisfiedlinkerror-org-apache-hadoop-io

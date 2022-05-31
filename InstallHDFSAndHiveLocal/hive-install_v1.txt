@@ -1,0 +1,58 @@
+#### Download + install Hive
+- cd to your home directory
+- ```wget https://mirrors.sonic.net/apache/hive/hive-3.1.2/apache-hive-3.1.2-bin.tar.gz```
+- wait for this complete
+- ```tar -xvzf apache-hive-3.1.2-bin.tar.gz```
+
+#### Add exports to .bashrc
+- ```sudo nano .bashrc```
+- Add the lines below to the .bashrc that opens, replacing username with your username
+- ```export HADOOP_HOME=~/hadoop/hadoop-3.3.0```
+- ```export HIVE_HOME=~/apache-hive-3.1.2-bin```
+- ```export PATH=$HADOOP_HOME/bin:$HIVE_HOME/bin:$PATH```
+
+- ```#Additional shortcuts, from Danny:```
+- ```alias startdfs='$HADOOP_HOME/sbin/start-dfs.sh'```
+- ```alias startyarn='$HADOOP_HOME/sbin/start-yarn.sh'```
+- ```alias stopdfs='$HADOOP_HOME/sbin/stop-dfs.sh'```
+- ```alias stopyarn='$HADOOP_HOME/sbin/stop-yarn.sh'```
+- Close and restart your Ubuntu shell.(source ~/.bashrc)
+
+#### Run HDFS commands necessary for Hive setup
+- start hdfs + yarn if not already running (you can check with ```jps```)
+- ```startdfs``` (makes use of the alias above)
+- ```startyarn```
+- ```hadoop fs -mkdir /tmp```
+- ```hadoop fs -mkdir -p /user/hive/warehouse```
+- ```hadoop fs -chmod g+w /tmp```
+- ```hadoop fs -chmod g+w /user```
+- ```hadoop fs -chmod g+w /user/hive```
+- ```hadoop fs -chmod g+w /user/hive/warehouse```
+
+#### Initialize Hive
+- ```schematool -dbType derby -initSchema```
+- This should say 'schemaTool completed' at the end.  It will create a derby.log file and
+- a metastore_db directory in our $HIVE_HOME.  If you ever need to destructive restart hive, delete those files and run this command again.
+
+- We can now connect on the command line using: ```beeline -u jdbc:hive2://```
+- Use Ctrl+D to exit beeline
+
+NOTE: setting up the beeline with a new install can be tricky, you can also just use $HIVE_HOME/bin/hive to access the hive without using the beeline. We like the beeline because it is a an enhanced CLI which supports multi-client concurrency with HiveServer2, but as long you know this you, your practice is equivalent with either beeline or the regular hive CLI. 
+
+- run a create database command to make sure it's working:
+- ```CREATE DATABASE testdb;```
+
+
+#### Final notes
+- Hive runs using Hadoop, so you'll need to have HDFS + YARN running.
+- You'll also need to remember to start the ssh daemon (sshd) when you boot up Ubuntu after a restart
+
+
+-for beeline use:
+sudo nohup $HIVE_HOME/bin/hiveserver2&
+beeline -u jdbc:hive2://
+
+https://cwiki.apache.org/confluence/display/Hive/languagemanual
+
+also there is a bug in the guava*.jar files see the following link:
+https://kontext.tech/column/hadoop/415/hive-exception-in-thread-main-javalangnosuchmethoderror-comgooglecommon

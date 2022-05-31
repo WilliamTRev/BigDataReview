@@ -1,0 +1,64 @@
+- What is Git?
+Git is a mature, actively maintained open source project originally developed in 2005 by Linus Torvalds, the famous creator of the Linux operating system kernel.
+- What about GitHub? How are they related?
+https://github.com/
+- What command moves changes from GitHub to our local repo?
+- What command moves changes from our local repo to GitHub?
+- What two commands are used in sequence to save changes to our local repo?
+- What is the JDK and what does it let us do?
+- What is the JRE and what does it let us do?
+- What's the name for the code written in .class files?
+- How does Scala relate to Java?
+- What is sbt (high level)?
+- How does Scala relate to the JRE and JVM?
+
+- Is Scala statically or dynamically typed?
+- Do we need to declare type for our variables in Scala? always?
+- What are integer types in Scala?
+- Decimal types?
+- What is the size of an Int? a Double? (the default integer and decimal types)
+- What is the difference between val and var?
+- Why do we make use of programming paradigms like Functional Programming and Object Oriented Programming?
+- What are the 4 pillars of OOP: Abstraction, Encapsulation, Inheritance, Polymorphism? (a bit on each)
+- What are classes? Objects?
+- What is the significance of the Any class in Scala?
+- What does it mean that functions are first class citizens in Scala?
+- What is a pure function?/What is a side effect?
+- What's the difference between an expression and a statement?
+- What's the difference between a while loop and a do-while loop?
+- How does String interpolation work in Scala?
+- How do operators work in Scala?  Where is "+" defined?
+- How do we define an auxiliary constructor?
+- What is a REPL?
+- How does the Scala REPL store the results of evaluated expressions?
+- What is a higher order function?
+- Why might we want to write an application using pure functions instead of impure functions?
+- Why might we want mutable state (OOP) in our application?  Why might we want immutable state (FP)?
+  - This question is open-ended, don't focus on finding the "right" answer
+- What are some examples of side effects?
+- What is a Lambda?
+- How can we write Lambdas in Scala?
+- What does map do?
+- What does filter do?
+- What does it mean that a function returns Unit in Scala?
+- Know the basics of the following Scala Collections: (mutable? indexed? when to use it?)
+  - List
+  - Set
+  - Map
+  - ArrayBuffer
+  - Vector
+- What are Exceptions?
+- What are Errors?
+- What is Throwable?
+- How would we write code that handles a thrown Exception?
+- How do we write code to throw an Exception?
+
+- What does the src folder contain in an sbt project?
+- What is a case class?-->explore
+- What methods get generated when we declare a case class?-->explore
+- What does the apply method do?-->explore
+- What is a Thread?-->explore
+- In what situations might we want to use multiple threads? (just some)-->explore
+
+
+
