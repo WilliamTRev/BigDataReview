@@ -1,0 +1,54 @@
+Python Interview Questions for Data Science
+Is Python an object-oriented language? What is object-oriented programming? 
+What is a Python module? How is it different from libraries?
+What is PEP8?
+Name mutable and immutable objects.
+What are compound data types and data structures?
+What is the difference between a list and a tuple?  
+What are list and dictionary comprehension? Give an example of each.
+What is tuple unpacking? Why is it important?
+What are generators and decorators?
+What is the difference between %,  / and // ?
+What is the difference between is and ‘==’ ?
+What is the difference between indexing and slicing?
+What is the lambda function?
+Explain zip() and enumerate() function.
+How do map, reduce and filter functions work?
+What is the difference between del(), clear(), remove(),  and pop()?
+What is the difference between range, xrange and arange?
+What is the difference between pass, continue and break?
+What is Regex? List some of the important Regex functions.
+What are namespaces in Python?
+What is the difference between global and local variables?
+What is a default value?
+What does *args, **kwargs mean? When are these used?
+What is the difference between print and return?
+What is the use of the With statement?
+What is the difference between conditionals and control flows?
+How is exception handling achieved in Python?
+What is for loop and how is it different from while loop?
+What is class and object?
+What is docstring?
+
+Pandas and Visualization
+What is the difference between series and vectors?
+What is the difference between data frames and matrices?
+What is the difference between lists and arrays?
+What is the difference between .iloc and .loc?
+What is the difference between merge, join and concatenate?
+What is the apply() function?
+When do we use pivot_table and when do we use crosstab?
+How do you use groupby?
+What are ways to reshape a pandas dataframe? 
+What is the difference between duplicated and drop_duplicates?
+Which all Python libraries have you used for visualization? 
+List some of the categorical, distribution plots.
+What is a scatter plot?
+What is the difference between regplot(), lmplot() and residplot()?
+What is a heatmap?
+What is the difference between stripplot() and swarmplot()?
+What is the purpose of density plot or  kde plot? Where are these used?
+How is violinplot() different from boxplot()?
+What is FacetGrid?
+What is a Pairplot?
+

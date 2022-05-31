@@ -1,0 +1,43 @@
+Define Scala?
+Define the features of Mutable Variables?
+Define the features of Immutable Variables?
+How is Scala a programming language with a combination of both functional and object-oriented programming?
+What is Recursion in Scala?
+What are Tuples in Scala?
+What are Set in Scala?
+What are Seq in Scala?
+What are List in Scala?
+What are Map (collection) in scala?
+How do you get distinct values from a List?
+How do you drop "n" elements from a list?
+How do you filter elements in a List?
+How do you reverse the contents of a list?
+Explain the Syntax for function declaration in Scala?
+Describe Exception Handling in Scala?
+What is a ‘Scala set’? What are methods through which operation can be performed on sets?
+Explain the difference between var and val?
+Is Tuple immutable?
+What is Class in Scala?
+What is an Object in Scala?
+What is inheritance?
+What is a trait?
+Define Higher-order functions?
+What are the different scopes for variables in Scala?
+What are Fields in Scala?
+What are the method parameters?
+What are the local variables?
+Define Traits in Scala?
+What is an extend keyword in Scala?
+What are the different types of Access Modifiers available in Scala?
+What is a Private Access Modifier?
+What is Public Access Modifier?
+What is Protected Access Modifier?
+What are the different Loops in Scala?
+What is an Infinite Loop?
+Define Map in Scala?
+What is Pattern Matching in Scala?
+What are option, some and none in scala?
+Explain vararg (variable arguments) arguments?
+Difference between the methods map() and flatMap()?
+What is a Future?
+What is lazy val?
