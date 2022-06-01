@@ -87,7 +87,7 @@ wsl --set-version Ubuntu-18.04 2
 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
-<<<2. Commands to Install Hadoop 3.3.0>>>
+<<<2. Commands to Install Hadoop 3.3.3>>>
 -----------------------------------------
 Link: https://kontext.tech/column/hadoop/445/install-hadoop-330-on-windows-10-using-wsl
 or
@@ -122,7 +122,7 @@ OpenJDK 64-Bit Server VM (build 11.0.10+9-Ubuntu-0ubuntu1.18.04, mixed mode, sha
 
 - 5. Run the following command in Ubuntu terminal to download a Hadoop binary from the internet: (If the Hadoop version is changed, then need to update the below command with the new Hadoop version's location)
 
-wget https://mirrors.estointernet.in/apache/hadoop/common/hadoop-3.3.0/hadoop-3.3.0.tar.gz
+wget https://mirrors.estointernet.in/apache/hadoop/common/hadoop-3.3.3/hadoop-3.3.3.tar.gz
 
 -Link-
 # The above link will be different and will be based on the region where the person is based on#
@@ -132,9 +132,9 @@ Step to reach the above link
 3. https://www.apache.org/dyn/closer.cgi/hadoop/common
 4. Click on the link where it is mentioned "We suggest the following mirror site for your download:"
 https://mirrors.estointernet.in/apache/hadoop/common
-5. hadoop-3.3.0/
-6. hadoop-3.3.0.tar.gz 
-https://mirrors.estointernet.in/apache/hadoop/common/hadoop-3.3.0/hadoop-3.3.0.tar.gz
+5. hadoop-3.3.3/
+6. hadoop-3.3.3.tar.gz 
+https://mirrors.estointernet.in/apache/hadoop/common/hadoop-3.3.3/hadoop-3.3.3.tar.gz
 
 
 
@@ -142,10 +142,10 @@ https://mirrors.estointernet.in/apache/hadoop/common/hadoop-3.3.0/hadoop-3.3.0.t
 mkdir ~/hadoop
 
 - 7. And then run the following command to unzip the binary package:
-tar -xvzf hadoop-3.3.0.tar.gz -C ~/hadoop
+tar -xvzf hadoop-3.3.3.tar.gz -C ~/hadoop
 
 - 8. Once it is unzipped, change the current directory to the hadoop folder:
-cd ~/hadoop/hadoop-3.3.0/
+cd ~/hadoop/hadoop-3.3.3/
 
 - 9. Configure passphraseless ssh
 (Make sure you can SSH to localhost in Ubuntu:)
@@ -193,7 +193,7 @@ sudo apt-get install openssh-client openssh-server
 ------ Configure the pseudo-distributed mode (Single-node mode) -----
 
 - 10. Do a fresh start:
-cd ~/hadoop/hadoop-3.3.0/
+cd ~/hadoop/hadoop-3.3.3/
 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -203,7 +203,7 @@ vi ~/.bashrc
 //Enter below in the file:
 [Press i to Insert the below data]
 export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64
-export HADOOP_HOME=~/hadoop/hadoop-3.3.0
+export HADOOP_HOME=~/hadoop/hadoop-3.3.3
 export PATH=$HADOOP_HOME/bin:$JAVA_HOME/bin:$PATH
 export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
 
@@ -222,7 +222,7 @@ export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 ------------------------------------------------------------------------------------------------------------------------------
 //[Optional, have not included the below in the latest Installation]
 export HADOOP_OPTS="$HADOOP_OPTS -Djava.net.preferIPv4Stack=true -Djava.security.krb5.realm= -Djava.security.krb5.kdc="
-export HADOOP_HOME=/home/wterry/hadoop/hadoop-3.3.0
+export HADOOP_HOME=/home/wterry/hadoop/hadoop-3.3.3
 export PATH=$PATH:$HADOOP_HOME/bin
 ------------------------------------------------------------------------------------------------------------------------------
 
@@ -379,7 +379,7 @@ hdfs dfs -mkdir -p /user/maria/wordcount1
 HDFS Commands after Installation:
 
 1. Transfer file from Local Linux system to Hadoop HDFS
-hdfs dfs -put /home/maria/hadoop/hadoop-3.3.0/README.txt  /user/maria/
+hdfs dfs -put /home/maria/hadoop/hadoop-3.3.3/README.txt  /user/maria/
 verify:
 1.1. hdfs dfs -ls /user/maria
 
@@ -390,7 +390,7 @@ hdfs dfs -mkdir /first
 
 Other commands
 1. pwd  (present working directory)
-/home/maria/hadoop/hadoop-3.3.0
+/home/maria/hadoop/hadoop-3.3.3
 
 2. hdfs dfs -ls /user/maria    (/user/maria  = hdfs location in hadoop)
 
@@ -400,26 +400,26 @@ Other commands
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
 File system tracking/Tracing Method based on commands:
-maria@DFLY36P2:~/hadoop/hadoop-3.3.0$ cd ..
+maria@DFLY36P2:~/hadoop/hadoop-3.3.3$ cd ..
 maria@DFLY36P2:~/hadoop$ ls
 hadoop-3.3.0
-maria@DFLY36P2:~/hadoop$ cd hadoop-3.3.0/
-maria@DFLY36P2:~/hadoop/hadoop-3.3.0$ ls
+maria@DFLY36P2:~/hadoop$ cd hadoop-3.3.3/
+maria@DFLY36P2:~/hadoop/hadoop-3.3.3$ ls
 LICENSE-binary  NOTICE-binary  README.txt  etc      lib      licenses-binary  sbin
 LICENSE.txt     NOTICE.txt     bin         include  libexec  logs             share
-maria@DFLY36P2:~/hadoop/hadoop-3.3.0$ cd share
-maria@DFLY36P2:~/hadoop/hadoop-3.3.0/share$ ls
+maria@DFLY36P2:~/hadoop/hadoop-3.3.3$ cd share
+maria@DFLY36P2:~/hadoop/hadoop-3.3.3/share$ ls
 doc  hadoop
-maria@DFLY36P2:~/hadoop/hadoop-3.3.0/share$ cd hadoop/
-maria@DFLY36P2:~/hadoop/hadoop-3.3.0/share/hadoop$ ls
+maria@DFLY36P2:~/hadoop/hadoop-3.3.3/share$ cd hadoop/
+maria@DFLY36P2:~/hadoop/hadoop-3.3.3/share/hadoop$ ls
 client  common  hdfs  mapreduce  tools  yarn
-maria@DFLY36P2:~/hadoop/hadoop-3.3.0/share/hadoop$ cd mapreduce/
-maria@DFLY36P2:~/hadoop/hadoop-3.3.0/share/hadoop/mapreduce$ ls
-hadoop-mapreduce-client-app-3.3.0.jar         hadoop-mapreduce-client-jobclient-3.3.0-tests.jar  hadoop-mapreduce-examples-3.3.0.jar
-hadoop-mapreduce-client-common-3.3.0.jar      hadoop-mapreduce-client-jobclient-3.3.0.jar        jdiff
-hadoop-mapreduce-client-core-3.3.0.jar        hadoop-mapreduce-client-nativetask-3.3.0.jar       lib-examples
-hadoop-mapreduce-client-hs-3.3.0.jar          hadoop-mapreduce-client-shuffle-3.3.0.jar          sources
-hadoop-mapreduce-client-hs-plugins-3.3.0.jar  hadoop-mapreduce-client-uploader-3.3.0.jar
+maria@DFLY36P2:~/hadoop/hadoop-3.3.3/share/hadoop$ cd mapreduce/
+maria@DFLY36P2:~/hadoop/hadoop-3.3.3/share/hadoop/mapreduce$ ls
+hadoop-mapreduce-client-app-3.3.3.jar         hadoop-mapreduce-client-jobclient-3.3.3-tests.jar  hadoop-mapreduce-examples-3.3.3.jar
+hadoop-mapreduce-client-common-3.3.3.jar      hadoop-mapreduce-client-jobclient-3.3.3.jar        jdiff
+hadoop-mapreduce-client-core-3.3.3.jar        hadoop-mapreduce-client-nativetask-3.3.3.jar       lib-examples
+hadoop-mapreduce-client-hs-3.3.3.jar          hadoop-mapreduce-client-shuffle-3.3.3.jar          sources
+hadoop-mapreduce-client-hs-plugins-3.3.3.jar  hadoop-mapreduce-client-uploader-3.3.3.jar
 
 
 
