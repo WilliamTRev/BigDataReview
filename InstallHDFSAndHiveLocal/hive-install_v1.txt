@@ -7,7 +7,7 @@
 #### Add exports to .bashrc
 - ```sudo nano .bashrc```
 - Add the lines below to the .bashrc that opens, replacing username with your username
-- ```export HADOOP_HOME=~/hadoop/hadoop-3.3.0```
+- ```export HADOOP_HOME=~/hadoop/hadoop-3.3.3```
 - ```export HIVE_HOME=~/apache-hive-3.1.2-bin```
 - ```export PATH=$HADOOP_HOME/bin:$HIVE_HOME/bin:$PATH```
 
